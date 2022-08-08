@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int depth(TreeNode *root)
+    {
+        if(root==NULL)
+            return 0;
+        return 1+max(depth(root->left),depth(root->right));
+    }
+    TreeNode *dfs(TreeNode *root)
+    {
+      if(root==NULL)
+          return NULL;
+        int lheight=depth(root->left);
+        int rheight=depth(root->right);
+        if(lheight==rheight)
+            return root;
+        if(lheight>rheight)
+            return dfs(root->left);
+        else
+            return dfs(root->right);
+       
+    }
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+      int height = depth(root);
+        return dfs(root);
+    }
+};
