@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int minSetSize(vector<int>& arr) {
+        unordered_map<int,int> mp;
+        priority_queue<int> pq;
+        int n=arr.size();
+        for(auto i:arr)
+        {
+            mp[i]++;
+        }
+        for(auto i:mp)
+        {
+            pq.push(i.second);
+        }
+        int count=0;
+        int ele=0;
+        while(!pq.empty())
+        {
+            count++;
+            ele = pq.top();
+            pq.pop();
+            n=n-ele;
+            if(n<=arr.size()/2)
+            {
+                break;
+            }
+            
+        }
+        return count;
+        
+        
+    }
+};
