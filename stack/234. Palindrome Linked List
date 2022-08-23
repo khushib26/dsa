@@ -1,0 +1,63 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode *temp=head;
+        int count=0;
+        while(temp!=NULL)
+        {
+            count++;
+            temp=temp->next;
+        }
+        //cout<<count;
+        if(count%2==0)
+        {
+            int mid=count/2;
+            stack<int> s;
+            //ListNode *start = head;
+            ListNode *curr=head;
+            for(int i=0;i<mid;i++)
+            {
+                s.push(curr->val);
+                curr=curr->next;
+            }
+
+            while(!s.empty())
+            {
+                if(s.top()!=curr->val)
+                {
+                    return false;
+                }
+                curr=curr->next;
+                s.pop();
+            }
+            return true;
+
+        }
+        else{
+            int mid=count/2;
+            stack<int> s;
+            //ListNode *start = head;
+            ListNode *curr=head;
+            for(int i=0;i<=mid;i++)
+            {
+                s.push(curr->val);
+                curr=curr->next;
+            }
+            s.pop();
+
+            while(!s.empty())
+            {
+                if(s.top()!=curr->val)
+                {
+                    return false;
+                }
+                curr=curr->next;
+                s.pop();
+            }
+            return true;
+            
+            
+        }
+        
+    }
+};
