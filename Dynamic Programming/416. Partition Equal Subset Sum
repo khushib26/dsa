@@ -1,0 +1,45 @@
+class Solution {
+public:
+    bool helper(vector<int> &nums, int curr_sum)
+    {
+        int n=nums.size();
+        bool dp[n+1][curr_sum+1];
+            for(int j=1;j<=curr_sum;j++)
+                {
+                   dp[0][j]=false;
+                }
+            for(int i=0;i<=n;i++)
+            {
+                dp[i][0]=true;
+            }
+            
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=curr_sum;j++)
+            {
+                if(nums[i-1]<=j)
+                {
+                    dp[i][j]=dp[i-1][j-nums[i-1]]||dp[i-1][j];
+                }
+                else
+                {
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+        return dp[n][curr_sum];
+    }
+    bool canPartition(vector<int>& nums) {
+        int sum=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            sum=sum+nums[i];
+        }
+        if(sum%2!=0)
+        {
+            return false;
+        }
+        int target=sum/2;
+        return helper(nums,target);
+    }
+};
