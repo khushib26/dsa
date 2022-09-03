@@ -5,20 +5,12 @@ public:
         int a,b;
         if(m==1 && n==1)
         {
-            count++;
+            return 0;
         }
-        else
+        if(m==1 || n==1)
         {
-            if(m>1)
-            {
-               a=uniquePaths(m-1,n);
-            }
-            if(n>1)
-            {
-                b=uniquePaths(m,n-1);
-            }
+            return 1;
         }
-     
-        return count;
+       return uniquePaths(m-1,n)+uniquePaths(m,n-1);
     }
 };
