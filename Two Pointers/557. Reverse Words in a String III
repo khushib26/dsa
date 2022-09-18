@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        int i=0;
+        int j=0;
+        int k;
+        char temp;
+        //string ans;
+        while(j<s.size())
+        {
+            if(s[j]==' ')
+            {
+                k=j+1;
+                while(j>i)
+                {
+                    temp=s[j-1];
+                    s[j-1]=s[i];
+                    s[i]=temp;
+                    j--;
+                    i++;
+                }
+                i=k;
+                j=k;
+            }
+            else if(j==s.size()-1)
+            {
+                while(j>i)
+                {
+                    temp=s[j];
+                    s[j]=s[i];
+                    s[i]=temp;
+                    j--;
+                    i++;
+                }
+                break;
+            }
+            j++;
+        }
+       return s;
+        
+    }
+};
