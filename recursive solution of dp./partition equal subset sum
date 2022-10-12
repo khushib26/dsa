@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool Partition(vector<int> &nums,int n,int sum)
+    {
+        if(sum==0 && n==0)
+        {
+            return true;
+        }
+        if(sum==0 )
+        {
+            return true;
+        }
+        if(n==0)
+        {
+            return false;
+        }
+        else
+        {
+            return Partition(nums,n-1,sum) || Partition(nums,n-1,sum-nums[n-1]);
+        }
+    }
+    bool canPartition(vector<int>& nums) {
+        int sum=accumulate(nums.begin(),nums.end(),0);
+        if(sum%2!=0)
+        {
+            return false;
+        }
+        else
+        {
+           return Partition(nums,nums.size(),sum/2); 
+        }
+    }
+};
