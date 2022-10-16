@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int coin(vector<int> &coins, int amount,int n)
+    {
+        if(amount==0)
+        {
+            return 0;
+        }
+        if(n==0)
+        {
+            return INT_MAX;
+        }
+        if(coins[n-1]>amount)
+        {
+            return coin(coins,amount,n-1);
+        }
+            return min(coin(coins,amount,n-1),1+coin(coins,amount-coins[n-1],n));
+        
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        return coin(coins,amount,n);
+    }
+};
