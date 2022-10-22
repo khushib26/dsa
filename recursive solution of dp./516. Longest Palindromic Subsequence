@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int lcs(string s,string str,int n,int m)
+    {
+        if(n==0||m==0)
+        {
+            return 0;
+        }
+        else if(s[n-1]==str[m-1])
+        {
+            return 1+lcs(s,str,n-1,m-1);
+        }
+        else
+        {
+            return max(lcs(s,str,n-1,m),lcs(s,str,n,m-1));
+        }
+    }
+    int longestPalindromeSubseq(string s) {
+        int n=s.size();
+        string str="";
+        for(int i=n-1;i>=0;i--)
+        {
+            str=str+s[i];
+        }
+        int m=str.size();
+       return lcs(s,str,n,m);
+    }
+};
