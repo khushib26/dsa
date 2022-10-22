@@ -1,0 +1,33 @@
+class Solution{
+		
+
+	public:
+	int lcs(string &text1,string &text2,int n,int m)
+    {
+        if(n==0 || m==0)
+        {
+            return 0;
+        }
+        if(text1[n-1]==text2[m-1])
+        {
+            return 1+lcs(text1,text2,n-1,m-1);
+        }
+        else
+        {
+            return max(lcs(text1,text2,n,m-1),lcs(text1,text2,n-1,m));
+        }
+    }
+	int minOperations(string str1, string str2) 
+	{ 
+	    int count;
+	    int n=str1.size();
+	    int m=str2.size();
+	    count=lcs(str1,str2,n,m);
+	    int no_insertions=n-count;
+	    int no_deletions=m-count;
+	    int res;
+	    res=no_insertions+no_deletions;
+	    return res;
+	    
+	} 
+};
