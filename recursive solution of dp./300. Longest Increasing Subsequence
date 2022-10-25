@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int length(vector<int> &nums,int start,int end)
+    {
+        int first=0;
+        if(end==nums.size())
+        {
+            return 0;
+        }
+        else if(start==-1 || nums[start]<nums[end] )
+        {
+            first = 1+length(nums,end,end+1);
+        }
+            int second =  length(nums,start,end+1);
+        return max(first,second);
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        return length(nums,-1,0);
+    }
+};
