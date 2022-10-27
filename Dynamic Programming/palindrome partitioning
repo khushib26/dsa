@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool check_palindrome(string s,int i,int j)
+    {
+        if(i>=j)
+            return true;
+        if(s[i]!=s[j])
+            return false;
+        check_palindrome(s,i+1,j-1);
+        return true;
+    }
+    int cut(string s,int i,int j)
+    {
+        int mn=INT_MAX;
+        int temp_ans;
+        if(i>=j)
+            return 0;
+        if(check_palindrome(s,i,j))
+            return 0;
+        for(int k=i;k<j;k++)
+        {
+            temp_ans=cut(s,i,k)+cut(s,k+1,j)+1;
+            mn=min(mn,temp_ans);
+        }
+        return mn;
+    }
+    int minCut(string s) {
+        int n=s.size()-1;
+        return cut(s,0,n);
+    }
+};
