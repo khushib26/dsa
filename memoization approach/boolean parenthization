@@ -1,0 +1,78 @@
+class Solution{
+public:
+    unordered_map<string,int> mp;
+    int solve(string S,int i,int j,bool istrue)
+    {
+        if(i>j)
+        {
+            return false;
+        }
+        if(i==j)
+        {
+            if(istrue==true)
+            {
+                return S[i]=='T';
+            }
+            else
+            {
+                return S[i]=='F';
+            }
+        } 
+        string temp;
+        temp=to_string(i);
+        temp.push_back(' ');
+        temp.append(to_string(j));
+        temp.push_back(' ');
+        temp.append(to_string(istrue));
+        if(mp.find(temp)!=mp.end())
+        {
+            return mp[temp];
+        }
+        int ans=0;
+       for(int k=i+1;k<=j-1;k=k+2)
+        {
+            int lt=solve(S,i,k-1,true);
+            int lf=solve(S,i,k-1,false);
+            int rt=solve(S,k+1,j,true);
+            int rf=solve(S,k+1,j,false);
+            if(S[k]=='&')
+            {
+                if(istrue==true)
+                {
+                    ans=ans+rt*lt;
+                }
+                else
+                {
+                    ans=ans+rt*lf+rf*lt+rf*lf;
+                }
+            }
+            else if(S[k]=='|')
+            {
+                if(istrue==true)
+                {
+                    ans=ans+rt*lt+rt*lf+rf*lt;
+                }
+                else
+                {
+                    ans=ans+rf*lf;
+                }
+            }
+            else if(S[k]=='^')
+            {
+                if(istrue==true)
+                {
+                    ans=ans+rt*lf+rf*lt;
+                }
+                else
+                {
+                    ans=ans+rt*lt+rf*lf;
+                }
+            }
+        }
+        return mp[temp]=ans%1003;
+    }
+    int countWays(int N, string S){
+        mp.clear();
+        return solve(S,0,N-1,true);
+    }
+};
