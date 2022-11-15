@@ -1,0 +1,31 @@
+class Solution
+{
+    public:
+    //Function to find the nth catalan number.
+    cpp_int Cr(int n,int r)
+    {
+        if(r>n)
+        {
+            return 0;
+        }
+        if(n==r)
+        {
+            return 1;
+        }
+        if(r==0)
+        {
+            return 1;
+        }
+        return Cr(n-1,r-1)+Cr(n-1,r);
+    }
+    cpp_int findCatalan(int n) 
+    {
+        if(n==0)
+        {
+            return 1;
+        }
+        cpp_int ans=Cr(2*n,n);
+        return ans/(n+1);
+        //code here
+    }
+};
