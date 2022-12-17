@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int max_no(int start,int end,vector<int> &nums)
+    {
+        int max=INT_MIN;
+        int res;
+        for(int i=start;i<=end;i++)
+        {
+            if(nums[i]>max)
+            {
+                max=nums[i];
+                res=i;
+            }
+        }
+        return res;
+    }
+    void tree(int s,int e,vector<int> &nums,TreeNode *root)
+    {
+        int index=max_no(s,e,nums);
+        root->val=nums[index];
+        if(index-1>=s)
+        {
+            root->left=new TreeNode(0);
+            tree(s,index-1,nums,root->left);
+        }
+        if(index+1<=e)
+        {
+            root->right=new TreeNode(0);
+            tree(index+1,e,nums,root->right);
+        }
+
+    }
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+        TreeNode *root=new TreeNode(0);
+        tree(0,nums.size()-1,nums,root);
+        return root;
+    }
+};
