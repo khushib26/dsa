@@ -1,0 +1,28 @@
+class Solution {
+public:
+    //int max=INT_MIN;
+    int count=0;
+    void n_count(TreeNode *root,int mx)
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        if(root->val>=mx)
+        {
+            mx=root->val;
+            count++;
+        }
+        n_count(root->left,mx);
+        n_count(root->right,mx);
+    }
+    
+    int goodNodes(TreeNode* root) {
+        if(root==NULL)
+        {
+            return 0;
+        }
+        n_count(root,INT_MIN);
+        return count;
+    }
+};
