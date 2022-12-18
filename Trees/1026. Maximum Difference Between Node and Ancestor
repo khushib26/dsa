@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int diff=INT_MIN;
+    void fn(TreeNode* root,int max,int min)
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        if(root->val>max)
+        {
+            max=root->val;
+        }
+        if(root->val<min)
+        {
+            min=root->val;
+        }
+        if(diff<abs(max-min))
+        {
+            diff=abs(max-min);
+        }
+        fn(root->left,max,min);
+        fn(root->right,max,min);
+    }
+    int maxAncestorDiff(TreeNode* root) {
+       // int diff=0;
+        fn(root,INT_MIN,INT_MAX);
+        return diff;
+    }
+};
