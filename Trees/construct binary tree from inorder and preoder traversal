@@ -1,0 +1,30 @@
+class Solution {
+public:
+    TreeNode* fn(vector<int>& preorder,int prestart,int prend,vector<int> &inorder,int instart,int inend,map<int,int>& mp)
+    {
+        if(prestart>prend || instart>inend)
+        {
+            return NULL;
+        }
+        TreeNode *root=new TreeNode(preorder[prestart]);
+        int a=mp[root->val];
+        //root->val=preorder[prestart];
+        int numsleft=a-instart;
+        root->left=fn(preorder,prestart+1,prestart+numsleft,inorder,instart,a-1,mp);
+        root->right=fn(preorder,prestart+numsleft+1,prend,inorder,a+1,inend,mp);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        /*if(preorder.size()==0)
+        {
+            return NULL;
+        }*/
+        map<int,int> mp;
+        for(int i=0;i<inorder.size();i++)
+        {
+            mp[inorder[i]]=i;
+        }
+        TreeNode *root= fn(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1,mp);
+        return root;
+    }
+};
