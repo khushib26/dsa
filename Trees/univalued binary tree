@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool fn(TreeNode *root,int ans)
+    {
+        if(root==NULL)
+        {
+            return true;
+        }
+        if(root->val!=ans)
+        {
+            return false;
+        }
+        return fn(root->left,ans) && fn(root->right,ans);;
+    }
+    bool isUnivalTree(TreeNode* root) {
+        int a;
+        a=root->val;
+        return fn(root->left,a) && fn(root->right,a);
+    }
+};
