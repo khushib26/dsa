@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<TreeNode*> v;
+    unordered_map<string,int> mp;
+    string fn(TreeNode* root)
+    {
+        if(root==NULL)
+        {
+            return "$";
+        }
+        string m=to_string(root->val)+","+fn(root->left)+","+fn(root->right);
+        if(mp[m]==1)
+        {
+            v.push_back(root);
+        }
+        mp[m]++;
+        return m;
+    }
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
+        fn(root);
+        return v;
+    }
+};
