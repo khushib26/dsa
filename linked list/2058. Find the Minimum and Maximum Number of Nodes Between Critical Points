@@ -1,0 +1,61 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+        ListNode *ne=head;
+         vector<int> ans;
+         int count=0;
+        while(ne!=NULL)
+        {
+            ne=ne->next;
+            count++;
+        }
+        if(count==1 || count==2)
+        {
+            ans.push_back(-1);
+            ans.push_back(-1);
+            return ans;
+        }
+        ListNode *prev=head;
+        ListNode *curr=head->next;
+        ListNode *temp=head->next->next;
+        int i=2;
+        vector<int> res;
+        while(temp!=NULL)
+        {
+            if((curr->val > prev->val && curr->val > temp->val) || (curr->val <prev->val && curr->val < temp->val))
+            {
+                res.push_back(i);
+            }
+            prev=prev->next;
+            curr=curr->next;
+            temp=temp->next;
+            i++;
+        }
+        if(res.empty() || res.size()==1)
+        {
+            ans.push_back(-1);
+            ans.push_back(-1);
+            return ans;
+        }
+        int n=res.size()-1;
+        int maxi=res[n]-res[0];
+        int mini=INT_MAX;
+        for(int i=0;i<=n-1;i++)
+        {
+            mini=min(mini,res[i+1]-res[i]);
+        }
+        ans.push_back(mini);
+        ans.push_back(maxi);
+        return ans;
+    }
+};
