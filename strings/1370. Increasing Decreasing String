@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string sortString(string s) {
+        unordered_map<char,int> mp;
+        string ans="";
+        for(int i=0;i<s.size();i++)
+        {
+            mp[s[i]]++;
+        }
+        while(!mp.empty())
+        {
+            for(char i='a';i<='z';i++)
+            {
+                if(mp.find(i)!=mp.end())
+                {
+                    ans=ans+i;
+                    mp[i]--;
+                    if(mp[i]==0)
+                    {
+                        mp.erase(i);
+                    }
+                }
+            }
+            if(!mp.empty())
+            {
+                for(char i='z';i>='a';i--)
+                {
+                    if(mp.find(i)!=mp.end())
+                    {
+                        ans=ans+i;
+                        mp[i]--;
+                        if(mp[i]==0)
+                        {
+                            mp.erase(i);
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
