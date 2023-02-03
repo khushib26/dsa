@@ -1,0 +1,33 @@
+//{ Driver Code Starts
+//Initial Template for C++
+
+#include<bits/stdc++.h> 
+using namespace std; 
+
+class Solution{   
+public:
+    long long int fn(int N,int r[],int g[],int b[],int select)
+    {
+        if(N==0)
+        {
+            return 0;
+        }
+        if(select==0)
+        {
+            return min(g[N-1]+fn(N-1,r,g,b,1),r[N-1]+fn(N-1,r,g,b,2));
+        }
+        if(select==1)
+        {
+            return min(b[N-1]+fn(N-1,r,g,b,0),r[N-1]+fn(N-1,r,g,b,2));
+        }
+        if(select==2)
+        {
+            return min(b[N-1]+fn(N-1,r,g,b,0),g[N-1]+fn(N-1,r,g,b,1));
+        }
+        return min(b[N-1]+fn(N-1,r,g,b,0),min(g[N-1]+fn(N-1,r,g,b,1),r[N-1]+fn(N-1,r,g,b,2)));
+    }
+    long long int distinctColoring(int N, int r[], int g[], int b[]){
+        return fn(N,r,g,b,-1);
+    }
+};
+
