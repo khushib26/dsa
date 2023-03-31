@@ -1,0 +1,38 @@
+class Solution {
+  public:
+    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
+        //vector<int> ans;
+        queue<pair<int,int>> q;
+        vector<bool> visited(N,false);
+        vector<int> parent(N,-1);
+        vector<int> adj[N];
+        for(auto it:edges)
+        {
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        parent[src]=0;
+        q.push({src,0});
+        visited[src]=true;
+        while(!q.empty())
+        {
+            auto temp = q.front();
+            q.pop();
+            int curr_node=temp.first;
+            int wt=temp.second;
+            //parent[curr_node]=wt;
+            parent[curr_node]=wt;
+            //visited[curr_node]=true;
+            for(auto it:adj[curr_node])
+            {
+                if(!visited[it])
+                {
+                    q.push({it,wt+1});
+                    visited[it]=true;
+                }
+                
+            }
+        }
+        return parent;
+    }
+};
