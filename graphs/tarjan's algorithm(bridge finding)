@@ -1,0 +1,55 @@
+class Solution
+{
+	public:
+    //Function to find if the given edge is a bridge in graph.
+    int ans=0;
+    int timer=0;
+    void dfs(int node,vector<int> &dis,vector<int> &low,int parent,vector<bool> &visited
+    ,vector<int>adj[],int c,int d)
+    {
+        dis[node]=timer;
+        low[node]=timer;
+        timer++;
+        visited[node]=true;
+        for(auto it:adj[node])
+        {
+            if(it==parent)
+            {
+                continue;
+            }
+            if(visited[it]==false)
+            {
+                dfs(it,dis,low,node,visited,adj,c,d);
+                low[node]=min(low[node],low[it]);
+                if(low[it]>dis[node])
+                {
+                    if((it==c && node==d) || (it==d && node==c))
+                    {
+                        ans=1;
+                    }
+                }
+            }
+            else
+            {
+                low[node]=min(low[node],dis[it]);
+            }
+        }
+    }
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+        vector<bool> visited(V,false);
+        vector<int> low(V,-1);
+        vector<int> dis(V,-1);
+        int parent=-1;
+        //int timer=0;
+        //int ans=0;
+        for(int i=0;i<V;i++)
+        {
+            if(visited[i]==false)
+            {
+                dfs(i,dis,low,-1,visited,adj,c,d);
+            }
+        }
+        return ans;
+    }
+};
