@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int coin(vector<int> &coins, int amount,int n)
+    long long int fn(int n,vector<int> &coins,int amount)
     {
         if(amount==0)
         {
@@ -12,13 +12,18 @@ public:
         }
         if(coins[n-1]>amount)
         {
-            return coin(coins,amount,n-1);
+            return fn(n-1,coins,amount);
         }
-            return min(coin(coins,amount,n-1),1+coin(coins,amount-coins[n-1],n));
+            return min(1+fn(n,coins,amount-coins[n-1]),fn(n-1,coins,amount));
         
     }
     int coinChange(vector<int>& coins, int amount) {
         int n=coins.size();
-        return coin(coins,amount,n);
+        int ans=fn(n,coins,amount);
+        if(ans==INT_MAX)
+        {
+            return -1;
+        }
+        return ans;
     }
 };
